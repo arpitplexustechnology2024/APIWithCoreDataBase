@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="aCA-3I-OjT">
-                                <rect key="frame" x="186.66666666666666" y="159" width="20" height="20"/>
+                                <rect key="frame" x="186.66666666666666" y="416" width="20" height="20"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MVM-IY-XYQ">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
@@ -137,7 +137,7 @@ UG9zdElkEBA6A
                             <constraint firstItem="ag8-hg-1dd" firstAttribute="trailing" secondItem="MVM-IY-XYQ" secondAttribute="trailing" id="JUx-4i-vcq"/>
                             <constraint firstItem="MVM-IY-XYQ" firstAttribute="top" secondItem="ag8-hg-1dd" secondAttribute="top" id="WVG-FE-aOV"/>
                             <constraint firstItem="ag8-hg-1dd" firstAttribute="bottom" secondItem="MVM-IY-XYQ" secondAttribute="bottom" id="Whs-qR-skT"/>
-                            <constraint firstItem="aCA-3I-OjT" firstAttribute="top" secondItem="ag8-hg-1dd" secondAttribute="top" constant="100" id="mSs-Y8-9NG"/>
+                            <constraint firstItem="aCA-3I-OjT" firstAttribute="centerY" secondItem="K68-zf-iYL" secondAttribute="centerY" id="oFW-Jq-Klj"/>
                             <constraint firstItem="MVM-IY-XYQ" firstAttribute="leading" secondItem="ag8-hg-1dd" secondAttribute="leading" id="zWD-Qt-EBn"/>
                         </constraints>
                     </view>

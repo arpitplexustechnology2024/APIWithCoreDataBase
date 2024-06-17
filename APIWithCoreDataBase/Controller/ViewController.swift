@@ -14,15 +14,33 @@ class ViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var viewModel = CommentsViewModel()
+    var noInternetView: NoInternetView!
+    var noDataView: NoDataView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.isHidden = true
         activityIndicator.style = .large
         fetchComment()
+        setupNoDataView()
+        checkInternetConnection()
+    }
+    
+    func setupNoDataView() {
+        noDataView = NoDataView()
+        noDataView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(noDataView)
+        
+        NSLayoutConstraint.activate([
+            noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            noDataView.topAnchor.constraint(equalTo: view.topAnchor),
+            noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        noDataView.isHidden = true
     }
     
     func fetchComment() {
@@ -33,12 +51,13 @@ class ViewController: UIViewController {
                 DispatchQueue.main.async {
                     if isLoading {
                         self.activityIndicator.startAnimating()
+                        self.tableView.isHidden = true
                     } else {
                         self.activityIndicator.stopAnimating()
                     }
                 }
             case .success:
-                DispatchQueue.main.async {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.activityIndicator.stopAnimating()
                     self.tableView.isHidden = false
                     self.tableView.reloadData()
@@ -47,24 +66,71 @@ class ViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
                     print("Error fetching comments: \(error)")
+                    self.showNoDataView()
                 }
             }
         }
         viewModel.onNoInternetConnection = { [weak self] in
             DispatchQueue.main.async {
-                self?.showNoInternetSnackbar()
-                self?.tableView.reloadData()
+                if AppRunTracker.shared.hasRunBefore {
+                    self?.viewModel.fetchCommentsFromCoreData()
+                    self?.showCachedDataSnackbar()
+                } else {
+                    self?.showNoInternetLayout()
+                }
             }
         }
-        
-        Reachability.shared.startMonitoring()
-        viewModel.fetchData()
+    }
+    
+    func checkInternetConnection() {
+        if Reachability.shared.isConnectedToNetwork() {
+            viewModel.fetchData()
+        } else {
+            if AppRunTracker.shared.hasRunBefore {
+                viewModel.fetchCommentsFromCoreData()
+                showCachedDataSnackbar()
+                print("No Internet Connection. Showing cached data.")
+            } else {
+                showNoInternetLayout()
+            }
+        }
+    }
+    
+    func showNoInternetLayout() {
+        if noInternetView == nil {
+            noInternetView = NoInternetView(frame: view.bounds)
+            noInternetView?.retryButton.addTarget(self, action: #selector(retryConnection), for: .touchUpInside)
+            view.addSubview(noInternetView!)
+        }
+        noInternetView?.isHidden = false
+        tableView.isHidden = true
+    }
+    
+    @objc private func retryConnection() {
+        if Reachability.shared.isConnectedToNetwork() {
+            noInternetView?.isHidden = true
+            tableView.isHidden = false
+            viewModel.fetchData()
+        } else {
+            showNoInternetSnackbar()
+        }
     }
     
     deinit {
         Reachability.shared.stopMonitoring()
     }
+    
+    func showNoDataView() {
+        noDataView.isHidden = false
+        tableView.isHidden = true
+    }
+    
     func showNoInternetSnackbar() {
+        let snackbar = TTGSnackbar(message: "No Internet Connection. Please try again.", duration: .middle)
+        snackbar.show()
+    }
+    
+    func showCachedDataSnackbar() {
         let snackbar = TTGSnackbar(message: "No Internet Connection. Showing cached data.", duration: .middle)
         snackbar.show()
     }

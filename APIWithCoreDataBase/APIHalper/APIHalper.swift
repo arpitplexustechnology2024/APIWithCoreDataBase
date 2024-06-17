@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 import CoreData
+import TTGSnackbar
 
 class NetworkManager {
     static let shared = NetworkManager()
@@ -24,7 +25,7 @@ class NetworkManager {
     }()
     
     func getComments(completion: @escaping (APIState<[Comment]>) -> Void) {
-        let url = "https://jsonplaceholder.typicode.com/comments"
+        let url = "https://jsonplaceholder.typicode.com/commeents"
         
         print("Fetching comments from API...")
         AF.request(url)
@@ -39,7 +40,7 @@ class NetworkManager {
                         
                         // Save comments to Core Data
                         self.saveCommentsToCoreData(comments)
-                        print("Successfully fetched comments from API: \(comments)")
+                        print("Successfully fetched comments from API: \(data)")
                         completion(.success(comments))
                     } catch {
                         print("JSON parsing error: \(error)")
@@ -57,7 +58,7 @@ class NetworkManager {
             }
     }
     
-    private func saveCommentsToCoreData(_ comments: [Comment]) {
+    func saveCommentsToCoreData(_ comments: [Comment]) {
         persistentContainer.performBackgroundTask { context in
             do {
                 for commentData in comments {
@@ -82,11 +83,27 @@ class NetworkManager {
         do {
             let comments = try persistentContainer.viewContext.fetch(request)
             let commentModels = comments.map { Comment(postId: Int($0.postId), id: Int($0.id), name: $0.name ?? "", email: $0.email ?? "", body: $0.body ?? "") }
-            print("Fetched comments from Core Data: \(commentModels)")
+            print("Fetched comments from Core Data: \(commentModels.count)")
             completion(commentModels)
         } catch {
             print("Failed to fetch comments from Core Data: \(error)")
             completion(nil)
+        }
+    }
+}
+
+class AppRunTracker {
+    static let shared = AppRunTracker()
+    private let hasRunBeforeKey = "hasRunBefore"
+    
+    private init() {}
+    
+    var hasRunBefore: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: hasRunBeforeKey)
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: hasRunBeforeKey)
         }
     }
 }

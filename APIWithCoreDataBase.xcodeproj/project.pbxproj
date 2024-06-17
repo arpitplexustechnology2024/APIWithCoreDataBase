@@ -24,6 +24,10 @@
 		BD2BE2402C1E637600533B24 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2BE23E2C1E637600533B24 /* TableViewCell.swift */; };
 		BD2BE2422C1E651E00533B24 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2BE2412C1E651E00533B24 /* ErrorHandling.swift */; };
 		BD2BE2442C1E6F4100533B24 /* InternetReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2BE2432C1E6F4100533B24 /* InternetReachability.swift */; };
+		BDA680792C20A9F100749979 /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA680742C20A9F100749979 /* NoDataView.swift */; };
+		BDA6807A2C20A9F100749979 /* NoDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDA680752C20A9F100749979 /* NoDataView.xib */; };
+		BDA6807B2C20A9F100749979 /* NoInternetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA680762C20A9F100749979 /* NoInternetView.swift */; };
+		BDA6807C2C20A9F100749979 /* NoInternetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDA680772C20A9F100749979 /* NoInternetView.xib */; };
 		C30C30B07A49E8267C0CE235 /* Pods_APIWithCoreDataBaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E462A033FA2E6B39DAB70F39 /* Pods_APIWithCoreDataBaseTests.framework */; };
 		D887901BFA9245CBE8D72857 /* Pods_APIWithCoreDataBase_APIWithCoreDataBaseUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 736E7B7842D7F2FC0B05C56C /* Pods_APIWithCoreDataBase_APIWithCoreDataBaseUITests.framework */; };
 /* End PBXBuildFile section */
@@ -74,6 +78,10 @@
 		BD2BE23E2C1E637600533B24 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		BD2BE2412C1E651E00533B24 /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		BD2BE2432C1E6F4100533B24 /* InternetReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetReachability.swift; sourceTree = "<group>"; };
+		BDA680742C20A9F100749979 /* NoDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
+		BDA680752C20A9F100749979 /* NoDataView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoDataView.xib; sourceTree = "<group>"; };
+		BDA680762C20A9F100749979 /* NoInternetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoInternetView.swift; sourceTree = "<group>"; };
+		BDA680772C20A9F100749979 /* NoInternetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoInternetView.xib; sourceTree = "<group>"; };
 		E462A033FA2E6B39DAB70F39 /* Pods_APIWithCoreDataBaseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APIWithCoreDataBaseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -243,11 +251,23 @@
 		BD2BE24C2C1E6FB000533B24 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BDA680782C20A9F100749979 /* XIB */,
 				BD2BE23F2C1E637600533B24 /* Cell */,
 				BD2BE20B2C1E602700533B24 /* Main.storyboard */,
 				BD2BE2132C1E602900533B24 /* LaunchScreen.storyboard */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		BDA680782C20A9F100749979 /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				BDA680742C20A9F100749979 /* NoDataView.swift */,
+				BDA680752C20A9F100749979 /* NoDataView.xib */,
+				BDA680762C20A9F100749979 /* NoInternetView.swift */,
+				BDA680772C20A9F100749979 /* NoInternetView.xib */,
+			);
+			path = XIB;
 			sourceTree = "<group>";
 		};
 		C521DF558BA2B67AAA740D69 /* Frameworks */ = {
@@ -370,7 +390,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD2BE2122C1E602900533B24 /* Assets.xcassets in Resources */,
+				BDA6807A2C20A9F100749979 /* NoDataView.xib in Resources */,
 				BD2BE2152C1E602900533B24 /* Base in Resources */,
+				BDA6807C2C20A9F100749979 /* NoInternetView.xib in Resources */,
 				BD2BE20D2C1E602700533B24 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,8 +526,10 @@
 				BD2BE23B2C1E632800533B24 /* APIHalper.swift in Sources */,
 				BD2BE2402C1E637600533B24 /* TableViewCell.swift in Sources */,
 				BD2BE2392C1E630E00533B24 /* Model.swift in Sources */,
+				BDA680792C20A9F100749979 /* NoDataView.swift in Sources */,
 				BD2BE2102C1E602700533B24 /* APIWithCoreDataBase.xcdatamodeld in Sources */,
 				BD2BE20A2C1E602700533B24 /* ViewController.swift in Sources */,
+				BDA6807B2C20A9F100749979 /* NoInternetView.swift in Sources */,
 				BD2BE2062C1E602700533B24 /* AppDelegate.swift in Sources */,
 				BD2BE23D2C1E633F00533B24 /* CommentViewModel.swift in Sources */,
 				BD2BE2082C1E602700533B24 /* SceneDelegate.swift in Sources */,

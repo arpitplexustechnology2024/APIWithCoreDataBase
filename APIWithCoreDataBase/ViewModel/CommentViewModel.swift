@@ -25,12 +25,16 @@ class CommentsViewModel {
         if Reachability.shared.isConnectedToNetwork() {
             fetchCommentsFromAPI()
         } else {
-            fetchCommentsFromCoreData()
-            onNoInternetConnection?()
+           if AppRunTracker.shared.hasRunBefore {
+                fetchCommentsFromCoreData()
+                onNoInternetConnection?()
+            } else {
+                onNoInternetConnection?()
+            }
         }
     }
     
-    private func fetchCommentsFromAPI() {
+    func fetchCommentsFromAPI() {
         apiState = .loading(true)
         NetworkManager.shared.getComments { [weak self] result in
             guard let self = self else { return }
@@ -38,7 +42,8 @@ class CommentsViewModel {
             case .success(let comments):
                 self.comments = comments
                 self.apiState = .success(comments)
-                print("Successfully fetched comments from API: \(comments)")
+                AppRunTracker.shared.hasRunBefore = true
+                print("Successfully fetched comments from API: \(comments.count)")
             case .failure(let error):
                 self.apiState = .failure(error)
                 print("Failed to fetch comments from API: \(error)")
@@ -48,7 +53,7 @@ class CommentsViewModel {
         }
     }
     
-    private func fetchCommentsFromCoreData() {
+    func fetchCommentsFromCoreData() {
         NetworkManager.shared.fetchCommentsFromCoreData { [weak self] comments in
             guard let self = self else { return }
             if let comments = comments {
