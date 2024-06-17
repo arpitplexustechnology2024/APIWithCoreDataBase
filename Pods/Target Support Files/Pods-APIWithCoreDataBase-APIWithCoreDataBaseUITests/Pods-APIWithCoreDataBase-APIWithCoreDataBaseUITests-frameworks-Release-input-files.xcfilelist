@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-APIWithCoreDataBase-APIWithCoreDataBaseUITests/Pods-APIWithCoreDataBase-APIWithCoreDataBaseUITests-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/TTGSnackbar/TTGSnackbar.framework

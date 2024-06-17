@@ -7,6 +7,7 @@ target 'APIWithCoreDataBase' do
 
   # Pods for APIWithCoreDataBase
 pod 'Alamofire'
+pod "TTGSnackbar"
 
   target 'APIWithCoreDataBaseTests' do
     inherit! :search_paths

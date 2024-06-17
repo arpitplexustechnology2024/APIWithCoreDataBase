@@ -12,7 +12,7 @@ import CoreData
 class NetworkManager {
     static let shared = NetworkManager()
     private init() {}
-
+    
     let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "APIWithCoreDataBase")
         container.loadPersistentStores(completionHandler: { (_, error) in
@@ -22,10 +22,10 @@ class NetworkManager {
         })
         return container
     }()
-
+    
     func getComments(completion: @escaping (APIState<[Comment]>) -> Void) {
         let url = "https://jsonplaceholder.typicode.com/comments"
-
+        
         print("Fetching comments from API...")
         AF.request(url)
             .validate(statusCode: 200..<300)
@@ -56,7 +56,7 @@ class NetworkManager {
                 }
             }
     }
-
+    
     private func saveCommentsToCoreData(_ comments: [Comment]) {
         persistentContainer.performBackgroundTask { context in
             do {
@@ -75,10 +75,10 @@ class NetworkManager {
             }
         }
     }
-
+    
     func fetchCommentsFromCoreData(completion: @escaping ([Comment]?) -> Void) {
         let request: NSFetchRequest<CommentEntity> = CommentEntity.fetchRequest()
-
+        
         do {
             let comments = try persistentContainer.viewContext.fetch(request)
             let commentModels = comments.map { Comment(postId: Int($0.postId), id: Int($0.id), name: $0.name ?? "", email: $0.email ?? "", body: $0.body ?? "") }

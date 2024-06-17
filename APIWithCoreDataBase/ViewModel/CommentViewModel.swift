@@ -17,17 +17,19 @@ class CommentsViewModel {
             }
         }
     }
-
+    
     var onStateChange: ((APIState<[Comment]>) -> Void)?
-
+    var onNoInternetConnection: (() -> Void)?
+    
     func fetchData() {
         if Reachability.shared.isConnectedToNetwork() {
             fetchCommentsFromAPI()
         } else {
             fetchCommentsFromCoreData()
+            onNoInternetConnection?()
         }
     }
-
+    
     private func fetchCommentsFromAPI() {
         apiState = .loading(true)
         NetworkManager.shared.getComments { [weak self] result in
@@ -45,7 +47,7 @@ class CommentsViewModel {
             }
         }
     }
-
+    
     private func fetchCommentsFromCoreData() {
         NetworkManager.shared.fetchCommentsFromCoreData { [weak self] comments in
             guard let self = self else { return }

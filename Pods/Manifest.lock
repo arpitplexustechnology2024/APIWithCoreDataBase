@@ -1,16 +1,20 @@
 PODS:
   - Alamofire (5.9.1)
+  - TTGSnackbar (1.12.0)
 
 DEPENDENCIES:
   - Alamofire
+  - TTGSnackbar
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - TTGSnackbar
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  TTGSnackbar: 8e7650b9b1f5f44e40228473455986f5c12213c7
 
-PODFILE CHECKSUM: 59e14a888ee2f744f10296b1104b32b82c7fb5f0
+PODFILE CHECKSUM: e20758e3ee1b86f2e71b5de3fc4b52591f35d9a7
 
 COCOAPODS: 1.15.2

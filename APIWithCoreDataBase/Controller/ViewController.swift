@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TTGSnackbar
 
 class ViewController: UIViewController {
     
@@ -49,7 +50,23 @@ class ViewController: UIViewController {
                 }
             }
         }
+        viewModel.onNoInternetConnection = { [weak self] in
+            DispatchQueue.main.async {
+                self?.showNoInternetSnackbar()
+                self?.tableView.reloadData()
+            }
+        }
+        
+        Reachability.shared.startMonitoring()
         viewModel.fetchData()
+    }
+    
+    deinit {
+        Reachability.shared.stopMonitoring()
+    }
+    func showNoInternetSnackbar() {
+        let snackbar = TTGSnackbar(message: "No Internet Connection. Showing cached data.", duration: .middle)
+        snackbar.show()
     }
 }
 
